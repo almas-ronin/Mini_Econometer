@@ -18,6 +18,20 @@ shinyUI(dashboardPage(
                                                                          " Year ",
                                                                          choice_year))),
                      fluidRow(
+                       box(title='GDP/Capita in Million $ (Chained 2012)',htmlOutput("map"), width = 4),
+                       box(title ='% of people in poverty',htmlOutput("map1"),width = 4),
+                       box(title ='% of unemployment',htmlOutput("map2"), width = 4)
+                     ),
+                     
+                     fluidRow(
+                      width = 4,
+                              box(title = 'GDP vs. Unemployment correlation' , width = 4, infoBoxOutput("corrBox", width = 12)),
+                              box(title = 'GDP vs. Poverty correlation' , width = 4, infoBoxOutput("corrBox1", width = 12)),
+                              box(title = 'Unemployment vs. Poverty correlation' , width = 4, infoBoxOutput("corrBox2", width = 12))
+                      
+                     ),
+                     
+                     fluidRow(
                        
                        column( width = 4,
                               box(title = 'GDP/Capita in million $' , width = NULL, infoBoxOutput("maxBox", width = 12)),
@@ -39,9 +53,7 @@ shinyUI(dashboardPage(
                      
                      fluidRow(
                               
-                              box(title='GDP in Million $ (Chained 2012)',htmlOutput("map"), width = 4),
-                              box(title ='% of people in poverty',htmlOutput("map1"),width = 4),
-                              box(title ='% of unemployment',htmlOutput("map2"), width = 4),
+                              
                               # box(htmlOutput("bar")),
                               box(htmlOutput("bar"),width = 4),
                               box(htmlOutput("bar1"),width = 4),

@@ -152,13 +152,13 @@ shinyServer(function(input, output){
     max_value <- max(GDP[,input$selected])
     max_state <- 
       GDP$state.name[GDP[,input$selected]==max_value]
-    infoBox(max_state, max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
   })
   output$minBox <- renderInfoBox({
     min_value <- min(GDP[,input$selected])
     min_state <- 
       GDP$state.name[GDP[,input$selected]==min_value]
-    infoBox(min_state, min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
   })
   output$avgBox <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
@@ -170,13 +170,13 @@ shinyServer(function(input, output){
     max_value <- max(poverty[,input$selected])
     max_state <- 
       poverty$state.name[poverty[,input$selected]==max_value]
-    infoBox(max_state, max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
   })
   output$minBox1 <- renderInfoBox({
     min_value <- min(poverty[,input$selected])
     min_state <- 
       poverty$state.name[poverty[,input$selected]==min_value]
-    infoBox(min_state, min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
   })
   output$avgBox1 <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
@@ -188,18 +188,61 @@ shinyServer(function(input, output){
     max_value <- max(unemployment[,input$selected])
     max_state <- 
       unemployment$state.name[unemployment[,input$selected]==max_value]
-    infoBox(max_state, max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
   })
   output$minBox2 <- renderInfoBox({
     min_value <- min(unemployment[,input$selected])
     min_state <- 
       unemployment$state.name[unemployment[,input$selected]==min_value]
-    infoBox(min_state, min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
   })
   output$avgBox2 <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
             median(unemployment[,input$selected]), 
             icon = icon("medium-m")))
+ 
   
+  #### creating correlation infoboxes
+  output$corrBox <- renderInfoBox({
+    
+    GDP_1 = GDP %>% select(.,input$selected) 
+    unemp_1 = unemployment %>% select(.,input$selected)
+    unemp_2= unemp_1[-1,]
+    GDP_2 = GDP_1[-1,]
+    cor_GDP_U = cor(GDP_2,unemp_2)
+    
+    infoBox(cor_GDP_U , icon = icon("ruler-combined"))
+  
+    
+    
+    }) 
+  
+  output$corrBox1 <- renderInfoBox({
+    
+    GDP_1 = GDP %>% select(.,input$selected) 
+    pov_1 = poverty %>% select(.,input$selected)
+    pov_2= pov_1[-1,]
+    GDP_2 = GDP_1[-1,]
+    cor_GDP_P = cor(GDP_2,pov_2)
+    
+    infoBox(cor_GDP_P , icon = icon("ruler-combined"))
+    
+    
+    
+  }) 
+  
+  output$corrBox2 <- renderInfoBox({
+    
+    unemp_1 = unemployment %>% select(.,input$selected) 
+    pov_1 = poverty %>% select(.,input$selected)
+    pov_2= pov_1[-1,]
+    unemp_2 = unemp_1[-1,]
+    cor_U_P = cor(unemp_2,pov_2)
+    
+    infoBox(cor_U_P , icon = icon("ruler-combined"))
+    
+    
+    
+  }) 
   
 })
