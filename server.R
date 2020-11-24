@@ -152,54 +152,54 @@ shinyServer(function(input, output){
     max_value <- max(GDP[,input$selected])
     max_state <- 
       GDP$state.name[GDP[,input$selected]==max_value]
-    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"), color = "olive")
   })
   output$minBox <- renderInfoBox({
     min_value <- min(GDP[,input$selected])
     min_state <- 
       GDP$state.name[GDP[,input$selected]==min_value]
-    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"), color = "olive")
   })
   output$avgBox <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
             median(GDP[,input$selected]), 
-            icon = icon("medium-m")))
+            icon = icon("medium-m"), color = "olive"))
   
   #### poverty
   output$maxBox1 <- renderInfoBox({
     max_value <- max(poverty[,input$selected])
     max_state <- 
       poverty$state.name[poverty[,input$selected]==max_value]
-    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"), color = "red")
   })
   output$minBox1 <- renderInfoBox({
     min_value <- min(poverty[,input$selected])
     min_state <- 
       poverty$state.name[poverty[,input$selected]==min_value]
-    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"), color = "red")
   })
   output$avgBox1 <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
             median(poverty[,input$selected]), 
-            icon = icon("medium-m")))
+            icon = icon("medium-m"), color = "red"))
   
   #### unemployment
   output$maxBox2 <- renderInfoBox({
     max_value <- max(unemployment[,input$selected])
     max_state <- 
       unemployment$state.name[unemployment[,input$selected]==max_value]
-    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"))
+    infoBox(paste("Highest : ", max_state), max_value, icon = icon("sort-amount-up"), color = "orange")
   })
   output$minBox2 <- renderInfoBox({
     min_value <- min(unemployment[,input$selected])
     min_state <- 
       unemployment$state.name[unemployment[,input$selected]==min_value]
-    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"))
+    infoBox(paste("Lowest : ", min_state), min_value, icon = icon("sort-amount-up-alt"), color = "orange")
   })
   output$avgBox2 <- renderInfoBox(
     infoBox(paste("Median of the year ", input$selected),
             median(unemployment[,input$selected]), 
-            icon = icon("medium-m")))
+            icon = icon("medium-m"), color = "orange"))
  
   
   #### creating correlation infoboxes for map tab
