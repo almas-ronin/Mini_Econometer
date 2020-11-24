@@ -25,9 +25,9 @@ shinyUI(dashboardPage(
                      
                      fluidRow(
                       width = 4,
-                              box(title = 'GDP vs. Unemployment correlation' , width = 4, infoBoxOutput("corrBox", width = 12)),
-                              box(title = 'GDP vs. Poverty correlation' , width = 4, infoBoxOutput("corrBox1", width = 12)),
-                              box(title = 'Unemployment vs. Poverty correlation' , width = 4, infoBoxOutput("corrBox2", width = 12))
+                              box(title = 'GDP vs. Unemployment Correlation' , width = 4, infoBoxOutput("corrBox", width = 12)),
+                              box(title = 'GDP vs. Poverty Correlation' , width = 4, infoBoxOutput("corrBox1", width = 12)),
+                              box(title = 'Unemployment vs. Poverty Correlation' , width = 4, infoBoxOutput("corrBox2", width = 12))
                       
                      ),
                      
@@ -52,17 +52,24 @@ shinyUI(dashboardPage(
                        ),
                      
                      fluidRow(
-                              
-                              
                               # box(htmlOutput("bar")),
                               box(htmlOutput("bar"),width = 4),
                               box(htmlOutput("bar1"),width = 4),
                               box(htmlOutput("bar2"),width = 4))),
+             
+             
              tabItem(tabName = "Time_series",
                      fluidRow(
                        box(width = 4, background = 'navy', selectizeInput("selected2",
                                                       "State",
                                                       choice_state))
+                     ),
+                     
+                     fluidRow(
+                       width = 4,
+                       box(title = 'GDP vs. Poverty Correlation' , width = 4, infoBoxOutput("corrBox3", width = 12)),
+                       box(title = 'GDP vs. Unemployment Correlation' , width = 4, infoBoxOutput("corrBox4", width = 12)),
+                       box(title = 'Unemployment vs. Poverty Correlation' , width = 4, infoBoxOutput("corrBox5", width = 12))
                      ),
                      
                      fluidRow(
