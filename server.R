@@ -38,7 +38,7 @@ shinyServer(function(input, output){
     ### creating chart
     GDP_bar = GDP[order(GDP[,input$selected], decreasing = TRUE),]
     gvisBarChart(GDP_bar, xvar="state.name", yvar= input$selected,
-                 options=list(fontSize = 9 , width="auto", height="800",title='GDP/Capita in Million $ (Chained 2012)',
+                 options=list(fontSize = 9 , width="auto", height="800",title='Real GDP/Capita in Million $ (Chained $ 2012)',
                               titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
                               bar="{groupWidth:'60%'}"))
   })
@@ -61,6 +61,107 @@ shinyServer(function(input, output){
                               bar="{groupWidth:'60%'}"))
   })
   
+  output$bar3 <- renderGvis({
+    
+    cor_val = data.frame()
+    for (i in 1:50) {
+      
+      GDP_val= GDP[i,]  %>% gather(.,key = 'year', value = 'GDP')
+      GDP_val1= GDP_val[-1,]
+      GDP_val1[, 2] <- sapply(GDP_val1[, 2], as.numeric)
+      
+      pov_val= poverty[i,] %>% gather(.,key = 'year', value = 'poverty')
+      pov_val1= pov_val[-1,]
+      pov_val1[, 2] <- sapply(pov_val1[, 2], as.numeric)
+      
+      unemp_val= unemployment[i,] %>% gather(.,key = 'year', value = 'unemployment')
+      unemp_val1= unemp_val[-1,]
+      unemp_val1[, 2] <- sapply(unemp_val1[, 2], as.numeric)
+      
+      binded_tables = cbind (GDP_val1,pov_val1[,2],unemp_val1[,2])
+      names(binded_tables) = c('Year', 'GDP', 'Poverty', 'Unemployment') 
+      
+      cor_val[i,"GDP vs. P"] = cor(binded_tables$GDP,binded_tables$Poverty)
+      cor_val[i,"GDP vs. U"] = cor(binded_tables$GDP,binded_tables$Unemployment)
+      cor_val[i,"P vs. U"] = cor(binded_tables$Poverty,binded_tables$Unemployment)
+      
+    }
+    cor_val = cbind(state.name,cor_val)
+    cor_val = cor_val[order(cor_val[,"GDP vs. P"], decreasing = TRUE),]
+    ### creating chart
+    gvisBarChart(cor_val, xvar="state.name", yvar= "GDP vs. P",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between GDP and Poverty 2000-2018',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })  
+  
+  output$bar4 <- renderGvis({
+    
+    cor_val = data.frame()
+    for (i in 1:50) {
+      
+      GDP_val= GDP[i,]  %>% gather(.,key = 'year', value = 'GDP')
+      GDP_val1= GDP_val[-1,]
+      GDP_val1[, 2] <- sapply(GDP_val1[, 2], as.numeric)
+      
+      pov_val= poverty[i,] %>% gather(.,key = 'year', value = 'poverty')
+      pov_val1= pov_val[-1,]
+      pov_val1[, 2] <- sapply(pov_val1[, 2], as.numeric)
+      
+      unemp_val= unemployment[i,] %>% gather(.,key = 'year', value = 'unemployment')
+      unemp_val1= unemp_val[-1,]
+      unemp_val1[, 2] <- sapply(unemp_val1[, 2], as.numeric)
+      
+      binded_tables = cbind (GDP_val1,pov_val1[,2],unemp_val1[,2])
+      names(binded_tables) = c('Year', 'GDP', 'Poverty', 'Unemployment') 
+      
+      cor_val[i,"GDP vs. P"] = cor(binded_tables$GDP,binded_tables$Poverty)
+      cor_val[i,"GDP vs. U"] = cor(binded_tables$GDP,binded_tables$Unemployment)
+      cor_val[i,"P vs. U"] = cor(binded_tables$Poverty,binded_tables$Unemployment)
+      
+    }
+    cor_val = cbind(state.name,cor_val)
+    cor_val = cor_val[order(cor_val[,"GDP vs. U"], decreasing = TRUE),]
+    ### creating chart
+    gvisBarChart(cor_val, xvar="state.name", yvar= "GDP vs. U",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between GDP and Unemployment 2000-2018',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })  
+  
+  output$bar5 <- renderGvis({
+    
+    cor_val = data.frame()
+    for (i in 1:50) {
+      
+      GDP_val= GDP[i,]  %>% gather(.,key = 'year', value = 'GDP')
+      GDP_val1= GDP_val[-1,]
+      GDP_val1[, 2] <- sapply(GDP_val1[, 2], as.numeric)
+      
+      pov_val= poverty[i,] %>% gather(.,key = 'year', value = 'poverty')
+      pov_val1= pov_val[-1,]
+      pov_val1[, 2] <- sapply(pov_val1[, 2], as.numeric)
+      
+      unemp_val= unemployment[i,] %>% gather(.,key = 'year', value = 'unemployment')
+      unemp_val1= unemp_val[-1,]
+      unemp_val1[, 2] <- sapply(unemp_val1[, 2], as.numeric)
+      
+      binded_tables = cbind (GDP_val1,pov_val1[,2],unemp_val1[,2])
+      names(binded_tables) = c('Year', 'GDP', 'Poverty', 'Unemployment') 
+      
+      cor_val[i,"GDP vs. P"] = cor(binded_tables$GDP,binded_tables$Poverty)
+      cor_val[i,"GDP vs. U"] = cor(binded_tables$GDP,binded_tables$Unemployment)
+      cor_val[i,"P vs. U"] = cor(binded_tables$Poverty,binded_tables$Unemployment)
+      
+    }
+    cor_val = cbind(state.name,cor_val)
+    cor_val = cor_val[order(cor_val[,"P vs. U"], decreasing = TRUE),]
+    ### creating chart
+    gvisBarChart(cor_val, xvar="state.name", yvar= "P vs. U",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between Poverty and Unemployment 2000-2018',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })  
   
   
   #### output line charts ####
@@ -297,4 +398,5 @@ shinyServer(function(input, output){
     cor_U_P_ts = cor(binded_tables$Unemployment,binded_tables$Poverty)
     infoBox(cor_U_P_ts , icon = icon("ruler-combined"))
   })  
+
 })

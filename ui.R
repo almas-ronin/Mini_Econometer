@@ -20,7 +20,7 @@ shinyUI(dashboardPage(
                                                                          " Year ",
                                                                          choice_year))),
                      fluidRow(
-                       box(title='GDP/Capita in Million $ (Chained 2012)',htmlOutput("map"), width = 4),
+                       box(title='Real GDP/Capita in Million $ (Chained $ 2012)',htmlOutput("map"), width = 4),
                        box(title ='% of people in poverty',htmlOutput("map1"),width = 4),
                        box(title ='% of unemployment',htmlOutput("map2"), width = 4)
                      ),
@@ -79,6 +79,12 @@ shinyUI(dashboardPage(
                               box(title='GDP vs. Unemployment',htmlOutput("line1"), width = 12),
                               box(title='Unemployment vs. Poverty',htmlOutput("line2"), width = 12)
                               ),
+                     fluidRow(
+                       # box(htmlOutput("bar")),
+                       box(htmlOutput("bar3"),width = 4),
+                       box(htmlOutput("bar4"),width = 4),
+                       box(htmlOutput("bar5"),width = 4)
+                       )
       
                      )
              )
