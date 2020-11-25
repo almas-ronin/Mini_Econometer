@@ -164,6 +164,75 @@ shinyServer(function(input, output){
   })  
   
   
+  output$bar6 <- renderGvis({
+    
+    cor_GDP_P = data.frame()
+    year.number = vector()
+    for (i in 2000:2018){
+      
+      i_c = as.character(i)
+      j = i-1999
+      GDP_1 = GDP[,i_c]
+      pov_1 = poverty[,i_c]
+      cor_GDP_P[j,"GDP vs. P"] = cor(GDP_1,pov_1)
+      year.number [j]= as.character(i)
+    }
+    cor_GDP_P = cbind(year.number,cor_GDP_P)
+    
+
+    ### creating chart
+    gvisBarChart(cor_GDP_P, xvar="year.number", yvar= "GDP vs. P",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between GDP and Poverty',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })  
+  
+  output$bar7 <- renderGvis({
+    
+    cor_GDP_U = data.frame()
+    year.number = vector()
+    for (i in 2000:2018){
+      
+      i_c = as.character(i)
+      j = i-1999
+      GDP_1 = GDP[,i_c]
+      unemp_1 = unemployment[,i_c]
+      cor_GDP_U[j,"GDP vs. U"] = cor(GDP_1,unemp_1)
+      year.number [j]= as.character(i)
+    }
+    cor_GDP_U = cbind(year.number,cor_GDP_U)
+    
+    
+    ### creating chart
+    gvisBarChart(cor_GDP_U, xvar="year.number", yvar= "GDP vs. U",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between GDP and Unemployment',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })  
+  
+  output$bar8 <- renderGvis({
+    
+    cor_P_U = data.frame()
+    year.number = vector()
+    for (i in 2000:2018){
+      
+      i_c = as.character(i)
+      j = i-1999
+      pov_1 = poverty[,i_c]
+      unemp_1 = unemployment[,i_c]
+      cor_P_U[j,"P vs. U"] = cor(pov_1,unemp_1)
+      year.number [j]= as.character(i)
+    }
+    cor_P_U = cbind(year.number,cor_P_U)
+    
+    
+    ### creating chart
+    gvisBarChart(cor_P_U, xvar="year.number", yvar= "P vs. U",
+                 options=list(fontSize = 9 , width="auto", height="800",title='Correlation between Poverty and Unemployment',
+                              titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
+                              bar="{groupWidth:'60%'}"))
+  })
+  
   #### output line charts ####
   output$line <- renderGvis({
     
