@@ -36,7 +36,8 @@ shinyServer(function(input, output){
   #### output bar charts ####
   output$bar <- renderGvis({
     ### creating chart
-    gvisBarChart(GDP, xvar="state.name", yvar= input$selected,
+    GDP_bar = GDP[order(GDP[,input$selected], decreasing = TRUE),]
+    gvisBarChart(GDP_bar, xvar="state.name", yvar= input$selected,
                  options=list(fontSize = 9 , width="auto", height="800",title='GDP/Capita in Million $ (Chained 2012)',
                               titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
                               bar="{groupWidth:'60%'}"))
@@ -44,16 +45,17 @@ shinyServer(function(input, output){
   
   output$bar1 <- renderGvis({
     ### creating chart
-    gvisBarChart(poverty, xvar="state.name", yvar= input$selected,
+    poverty_bar = poverty[order(poverty[,input$selected], decreasing = TRUE),]
+    gvisBarChart(poverty_bar, xvar="state.name", yvar= input$selected,
                  options=list(fontSize = 9 , width="auto", height="800",title='% of people in poverty',
                               titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
                               bar="{groupWidth:'60%'}"))
   })
   
   output$bar2 <- renderGvis({
-   
+    unemployment_bar = unemployment[order(unemployment[,input$selected], decreasing = TRUE),]
     ### creating chart
-    gvisBarChart(unemployment, xvar="state.name", yvar= input$selected,
+    gvisBarChart(unemployment_bar, xvar="state.name", yvar= input$selected,
                  options=list(fontSize = 9 , width="auto", height="800",title='% of unemployment',
                               titleTextStyle="{color:'black',fontName:'sans-serif',fontSize:12}",
                               bar="{groupWidth:'60%'}"))
@@ -145,8 +147,7 @@ shinyServer(function(input, output){
                   ))
     
   })
-  ### Creating infoboxes
-  
+  #### output infoboxes max min median ####  
   #### GDP
   output$maxBox <- renderInfoBox({
     max_value <- max(GDP[,input$selected])
@@ -202,7 +203,7 @@ shinyServer(function(input, output){
             icon = icon("medium-m"), color = "orange"))
  
   
-  #### creating correlation infoboxes for map tab
+  #### creating correlation infoboxes for map tab ####
   output$corrBox <- renderInfoBox({
     GDP_1 = GDP %>% select(.,input$selected) 
     unemp_1 = unemployment %>% select(.,input$selected)
@@ -233,7 +234,7 @@ shinyServer(function(input, output){
   }) 
  
   
-  #### creating correlation infoboxes for time series
+  #### creating correlation infoboxes for time series tab ####
   output$corrBox3 <- renderInfoBox({
     
     GDP_val= GDP %>% filter(.,GDP$state.name == input$selected2 ) %>% gather(.,key = 'year', value = 'GDP')
