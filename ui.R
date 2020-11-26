@@ -81,8 +81,8 @@ shinyUI(dashboardPage(
                      ),
                      
                      fluidRow(
-                              box(title='GDP vs. Poverty',htmlOutput("line"), width = 12),
-                              box(title='GDP vs. Unemployment',htmlOutput("line1"), width = 12),
+                              box(title='GDP Growth vs. Poverty',htmlOutput("line"), width = 12),
+                              box(title='GDP Growth vs. Unemployment',htmlOutput("line1"), width = 12),
                               box(title='Unemployment vs. Poverty',htmlOutput("line2"), width = 12)
                               ),
                      fluidRow(
